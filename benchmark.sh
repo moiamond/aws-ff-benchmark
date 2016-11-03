@@ -1,7 +1,9 @@
 #!/bin/bash
 
 if [[ $# -ne 2 ]]
+then
   echo "Usage : $0 <EC2 Type> <Content URL>"
+  exit
 fi
 
 ec2_type=$1
