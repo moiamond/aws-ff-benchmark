@@ -28,13 +28,6 @@ Default region name [None]: ap-northeast-1
 Default output format [None]: ENTER
 ```
 
-### 建立 Security Group 開啟 ssh 登入
-
-```bash
-$ aws ec2 create-security-group --group-name devenv-sg --description "security group for development environment in EC2"
-$ aws ec2 authorize-security-group-ingress --group-name devenv-sg --protocol tcp --port 22 --cidr 0.0.0.0/0
-```
-
 ### 0.5 上傳測試檔
 
 1. 上傳測試檔到 [S3](https://console.aws.amazon.com/s3/home)
