@@ -10,7 +10,7 @@ chmod 400 $(uname -n).pem
 echo Create Key Pair ... $(uname -n).pem
 
 # launch ec2 instance
-instance_id=$(aws ec2 run-instances --image-id ami-0c11b26d --security-group-ids sg-98b474ff --count 1 --instance-type $ec2_type --key-name $(uname -n) --output text --query 'Instances[*].InstanceId')
+instance_id=$(aws ec2 run-instances --image-id ami-0c11b26d --count 1 --instance-type $ec2_type --key-name $(uname -n) --output text --query 'Instances[*].InstanceId')
 echo instance_id=$instance_id
 
 # wait for booting
