@@ -13,6 +13,8 @@
 ```
 $ pip install awscli
 ```
+更詳細的步驟，可以參考 [AWS CLI 安裝手冊](http://docs.aws.amazon.com/cli/latest/userguide/installing.html#install-with-pip)
+
 
 ### 0.3 設定 AWS CLI
 
@@ -24,7 +26,14 @@ Default region name [None]: ap-northeast-1
 Default output format [None]: ENTER
 ```
 
-### 0.4 上傳測試檔
+### 0.4 Create a Security Group for the EC2 Instance
+
+```bash
+$ aws ec2 create-security-group --group-name devenv-sg --description "security group for development environment in EC2"
+$ aws ec2 authorize-security-group-ingress --group-name devenv-sg --protocol tcp --port 22 --cidr 0.0.0.0/0
+```
+
+### 0.5 上傳測試檔
 
 1. 上傳測試檔到 `S3`
 1. 取得公開下載網址
@@ -34,7 +43,7 @@ Default output format [None]: ENTER
 ## 1. 啟動
 
 ```
-$ ./run.sh
+$ ./run.sh MEDIA_ON_S3_URL
 ```
 
 ---
@@ -43,14 +52,9 @@ $ ./run.sh
 
 ### Launch EC2 instance
 
-#### Create a Security Group, Key Pair, and Role for the EC2 Instance
+#### Create a Key Pair for the EC2 Instance
 
-```basg
-$ aws ec2 create-security-group --group-name devenv-sg --description "security group for development environment in EC2"
-{
-    "GroupId": "sg-98b474ff"
-}
-$ aws ec2 authorize-security-group-ingress --group-name devenv-sg --protocol tcp --port 22 --cidr 0.0.0.0/0
+```bash
 $ aws ec2 create-key-pair --key-name MyKeyPair --query "KeyMaterial" --output text > MyKeyPair.pem
 ```
 
@@ -87,4 +91,10 @@ $ aws ec2 terminate-instances --instance-ids i-a518e53b
         }                                      
     ]                                          
 }                                              
+```
+
+#### Delete a Key Pair for the EC2 Instance
+
+```bash
+$ aws ec2 delete-key-pair --key-name MyKeyPair
 ```
