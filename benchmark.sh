@@ -38,14 +38,14 @@ ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i $(uname -n).p
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i $(uname -n).pem ec2-user@$ip_address  "docker pull jrottenberg/ffmpeg"
 
 # Download content from url
-echo Downloading ... $1
-ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i $(uname -n).pem ec2-user@$ip_address  "wget -q $1 -O testclip"
+echo Downloading ... $s3_url
+ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i $(uname -n).pem ec2-user@$ip_address  "wget -q $s3_url -O testclip"
 
 ##############################################################################################################
 # Benchmark Begin
 
 echo ------------------------------------------------------------------------ >> $logfile
-echo [$(date +"%Y-%m-%d %H:%M:%S")] ec2 type: $ec2_type, content: $1 >> $logfile
+echo [$(date +"%Y-%m-%d %H:%M:%S")] ec2 type: $ec2_type, content: $s3_url >> $logfile
 echo [$(date +"%Y-%m-%d %H:%M:%S")] Begin Benchmark: >> $logfile
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i $(uname -n).pem ec2-user@$ip_address  "time docker run -v /home/ec2-user:/content jrottenberg/ffmpeg -i /content/testclip -vf \"yadif=0:-1:0,scale=1920:1080\" -r 30 -c:v libx264 -pix_fmt yuv420p -profile:v high -level 4.0 -b:v 5000K -c:a libfdk_aac -b:a 256K -movflags +faststart out.mp4" 2>&1 | tee -a $logfile
 
