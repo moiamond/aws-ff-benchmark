@@ -56,7 +56,7 @@ $ aws ec2 create-key-pair --key-name MyKeyPair --query "KeyMaterial" --output te
 #### Launching an Instance
 
 ```bash
-$ aws ec2 run-instances --image-id ami-0c11b26d --security-group-ids sg-98b474ff --count 1 --instance-type t2.micro --key-name MyKeyPair 
+$ aws ec2 run-instances --image-id ami-0c11b26d --count 1 --instance-type t2.micro --key-name MyKeyPair 
 ```
 
 #### Connect to your instance
