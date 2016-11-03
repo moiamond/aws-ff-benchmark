@@ -1,24 +1,26 @@
 # 測試 AWS EC2 機器轉檔效能
 
 
-## 0. 前製作業
+## 前製作業
 
-### 0.1 取得 Access Key ID 和 Secret Access Key
+### 取得 Access Key ID 和 Secret Access Key
 
-1. IAM 建立 User 並給他相對應的權限
+1. [IAM](https://console.aws.amazon.com/iam/home) 建立 User 並給他相對應的權限
 1. 拿到 User 的 Secret Credentials
 
-### 0.2 安裝 AWS CLI
+註: [AWS 參考文件](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html)
 
-```
+### 安裝 AWS CLI
+
+```bash
 $ pip install awscli
 ```
 更詳細的步驟，可以參考 [AWS CLI 安裝手冊](http://docs.aws.amazon.com/cli/latest/userguide/installing.html#install-with-pip)
 
 
-### 0.3 設定 AWS CLI
+### 設定 AWS CLI
 
-```
+```bash
 $ aws configure
 AWS Access Key ID [None]: AWS_ACCESS_KEY_ID
 AWS Secret Access Key [None]: AWS_SECRECT_ACCESS_KEY
@@ -26,7 +28,7 @@ Default region name [None]: ap-northeast-1
 Default output format [None]: ENTER
 ```
 
-### 0.4 Create a Security Group for the EC2 Instance
+### 建立 Security Group 開啟 ssh 登入
 
 ```bash
 $ aws ec2 create-security-group --group-name devenv-sg --description "security group for development environment in EC2"
@@ -35,7 +37,7 @@ $ aws ec2 authorize-security-group-ingress --group-name devenv-sg --protocol tcp
 
 ### 0.5 上傳測試檔
 
-1. 上傳測試檔到 `S3`
+1. 上傳測試檔到 [S3](https://console.aws.amazon.com/s3/home)
 1. 取得公開下載網址
 
 ---
