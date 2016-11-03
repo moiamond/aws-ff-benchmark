@@ -1,7 +1,11 @@
 #!/bin/bash
 
-s3_url=$1
-ec2_type=t2.micro
+if [[ $# -ne 2 ]]
+  echo "Usage : $0 <EC2 Type> <Content URL>"
+fi
+
+ec2_type=$1
+s3_url=$2
 logfile=log.txt
 
 # create key pair
