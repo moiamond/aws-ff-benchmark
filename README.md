@@ -37,9 +37,12 @@ Default output format [None]: ENTER
 
 ## 1. 啟動
 
+```bash
+$ ./run.sh EC2_TYPE MEDIA_ON_S3_URL
 ```
-$ ./run.sh MEDIA_ON_S3_URL
-```
+
+註: *EC2_TYPE* : `t2.micro` or `c4.large`, See EC2 [Instance Type](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html)
+
 
 ---
 
